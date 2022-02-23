@@ -30,6 +30,11 @@ contract ERC20Faucet {
         }
     }
 
+    function addERC20Token(uint256 _amount) external {
+        ERC20 instance = ERC20(ERC20TokenAddress);
+        instance.transferFrom(msg.sender, address(this), _amount);
+    }
+
     function faucet(address payable _to) external {
         ERC20 ERC20Token = ERC20(ERC20TokenAddress);
         require(ERC20Token.balanceOf(address(this)) >= faucetDripAmount, "Insufficient Faucet Funds");
